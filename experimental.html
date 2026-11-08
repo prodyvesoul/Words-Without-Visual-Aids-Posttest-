@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Presentation Experiment</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: white;
+      font-family: Arial, sans-serif;
+    }
+
+    #screen {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 48px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="screen">Welcome to the experiment</div>
+
+  <script>
+    // EDIT YOUR WORDS HERE
+    const words = [
+      "Slipper",
+      "Pizza",
+      "Cap",
+      "Biscuit",
+      "Guitar",
+      "Lamp",
+      "Key",
+      "Jacket",
+      "Dog",
+      "Brush"
+    ];
+
+    const WORD_DURATION = 3000;
+    const BLANK_DURATION = 500;
+
+    const screen = document.getElementById("screen");
+
+    // Start only when the participant clicks the Start button.
+    screen.style.fontSize = "24px";
+    screen.style.cursor = "pointer";
+    screen.textContent = "Click here to begin";
+
+    screen.addEventListener("click", startExperiment, { once: true });
+
+    function startExperiment() {
+      screen.style.cursor = "default";
+      screen.style.fontSize = "48px";
+
+      let index = 0;
+
+      function showWord() {
+        if (index >= words.length) {
+          screen.style.fontSize = "24px";
+          screen.textContent = "The presentation is complete.";
+          return;
+        }
+
+        // Show the current word for 3 seconds.
+        screen.textContent = words[index];
+
+        setTimeout(() => {
+          // Clear the screen for 0.5 seconds.
+          screen.textContent = "";
+
+          setTimeout(() => {
+            index++;
+            showWord();
+          }, BLANK_DURATION);
+
+        }, WORD_DURATION);
+      }
+
+      showWord();
+    }
+  </script>
+</body>
+</html>
